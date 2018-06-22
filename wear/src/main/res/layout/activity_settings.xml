@@ -29,6 +29,24 @@
             android:id="@+id/settings_24hr"
             android:onClick="onSettingClicked" />
 
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_tall_label"
+            android:checked="@bool/pref_tall_default"
+            android:id="@+id/settings_tall"
+            android:onClick="onSettingClicked" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_seethru_label"
+            android:checked="@bool/pref_seethru_default"
+            android:id="@+id/settings_seethru"
+            android:onClick="onSettingClicked" />
+
     </LinearLayout>
 
 </android.support.wear.widget.BoxInsetLayout>
