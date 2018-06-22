@@ -4,49 +4,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SettingsActivity"
-    android:padding="15dp">
+    android:paddingStart="15dp">
+    android:paddingEnd="15dp">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-        <TextView
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/settings_title"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:paddingBottom="16dp"/>
+            android:orientation="vertical">
 
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_24hr_label"
-            android:checked="@bool/pref_24hr_default"
-            android:id="@+id/settings_24hr"
-            android:onClick="onSettingClicked" />
 
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_tall_label"
-            android:checked="@bool/pref_tall_default"
-            android:id="@+id/settings_tall"
-            android:onClick="onSettingClicked" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_title"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"/>
 
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_seethru_label"
-            android:checked="@bool/pref_seethru_default"
-            android:id="@+id/settings_seethru"
-            android:onClick="onSettingClicked" />
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:text="@string/pref_24hr_label"
+                android:checked="@bool/pref_24hr_default"
+                android:id="@+id/settings_24hr"
+                android:onClick="onSettingClicked"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"/>
 
-    </LinearLayout>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:text="@string/pref_tall_label"
+                android:checked="@bool/pref_tall_default"
+                android:id="@+id/settings_tall"
+                android:onClick="onSettingClicked"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:text="@string/pref_seethru_label"
+                android:checked="@bool/pref_seethru_default"
+                android:id="@+id/settings_seethru"
+                android:onClick="onSettingClicked"
+                android:paddingTop="8dp"
+                android:paddingBottom="24dp"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.wear.widget.BoxInsetLayout>
