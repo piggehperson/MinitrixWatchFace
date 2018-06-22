@@ -1,0 +1,5 @@
+<resources>
+    k<bool name="pref_24hr_default">false</bool>
+    <bool name="pref_tall_default">false</bool>
+    <bool name="pref_seethru_default">true</bool>
+</resources>

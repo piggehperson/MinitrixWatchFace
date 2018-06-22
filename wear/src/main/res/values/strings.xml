@@ -6,5 +6,10 @@
 
     <string name="pref_24hr_label">Use 24 hour time</string>
     <string name="pref_24hr_key">pref_24hr</string>
-    <bool name="pref_24hr_default">false</bool>
+
+    <string name="pref_tall_label">Use tall peek cards</string>
+    <string name="pref_tall_key">pref_tall</string>
+
+    <string name="pref_seethru_label">Translucent peek cards</string>
+    <string name="pref_seethru_key">pref_seethru</string>
 </resources>
