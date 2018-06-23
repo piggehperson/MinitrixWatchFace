@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -115,13 +116,37 @@ public class MyWatchFace extends CanvasWatchFaceService {
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
 
-            setWatchFaceStyle(new WatchFaceStyle.Builder(MyWatchFace.this)
+            // Initialize SharedPreferences, used for loading settings
+            mPrefs = getSharedPreferences("prefs", MODE_PRIVATE);
+            mUse24hr = mPrefs.getBoolean(getString(R.string.pref_24hr_key), getResources().getBoolean(R.bool.pref_24hr_default));
+
+            WatchFaceStyle.Builder style = new WatchFaceStyle.Builder(MyWatchFace.this)
                     .setAcceptsTapEvents(false)
-                    .setStatusBarGravity(Gravity.CENTER | 10)
-                    .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
-                    .setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_TRANSLUCENT)
-                    .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_VISIBLE)
-                            .build());
+                    .setStatusBarGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL - 10) //TODO: figure out how this works and fix it
+                    .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_VISIBLE);
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
+                //Watch is running Android Wear 1.5 or lower, apply settings for 1.X
+
+                //Apply Tall Peek Cards preference
+                if (mPrefs.getBoolean(getString(R.string.pref_tall_key), getResources().getBoolean(R.bool.pref_tall_default))){
+                    //Peek cards should be tall
+                    style.setCardPeekMode(WatchFaceStyle.PEEK_MODE_VARIABLE);
+                } else {
+                    //Peek cards should be short
+                    style.setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT);
+                }
+                //Apply Translucent Peek Cards preference
+                if (mPrefs.getBoolean(getString(R.string.pref_seethru_key), getResources().getBoolean(R.bool.pref_seethru_default))){
+                    //Peek cards should be translucent
+                    style.setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_TRANSLUCENT);
+                } else {
+                    //Peek cards should be opaque
+                    style.setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_OPAQUE);
+                }
+            }
+
+            setWatchFaceStyle(style.build());
 
             mCalendar = Calendar.getInstance();
 
@@ -138,10 +163,6 @@ public class MyWatchFace extends CanvasWatchFaceService {
             mTextPaint.setTextAlign(Paint.Align.CENTER);
             mTextPaint.setColor(
                     ContextCompat.getColor(getApplicationContext(), R.color.digital_text));
-
-            // Initialize SharedPreferences, used for loading settings
-            mPrefs = getSharedPreferences("prefs", MODE_PRIVATE);
-            mUse24hr = mPrefs.getBoolean(getString(R.string.pref_24hr_key), getResources().getBoolean(R.bool.pref_24hr_default));
         }
 
         @Override
@@ -239,6 +260,38 @@ public class MyWatchFace extends CanvasWatchFaceService {
             mAmbient = inAmbientMode;
             if (mLowBitAmbient) {
                 mTextPaint.setAntiAlias(!inAmbientMode);
+            }
+
+            if(!mAmbient){
+                //update prefs. this is probably not the best way to do this but it's better than in onDraw()
+
+                WatchFaceStyle.Builder style = new WatchFaceStyle.Builder(MyWatchFace.this)
+                        .setAcceptsTapEvents(false)
+                        .setStatusBarGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL - 10) //TODO: figure out how this works and fix it
+                        .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_VISIBLE);
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
+                    //Watch is running Android Wear 1.5 or lower, apply settings for 1.X
+
+                    //Apply Tall Peek Cards preference
+                    if (mPrefs.getBoolean(getString(R.string.pref_tall_key), getResources().getBoolean(R.bool.pref_tall_default))){
+                        //Peek cards should be tall
+                        style.setCardPeekMode(WatchFaceStyle.PEEK_MODE_VARIABLE);
+                    } else {
+                        //Peek cards should be short
+                        style.setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT);
+                    }
+                    //Apply Translucent Peek Cards preference
+                    if (mPrefs.getBoolean(getString(R.string.pref_seethru_key), getResources().getBoolean(R.bool.pref_seethru_default))){
+                        //Peek cards should be translucent
+                        style.setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_TRANSLUCENT);
+                    } else {
+                        //Peek cards should be opaque
+                        style.setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_OPAQUE);
+                    }
+                }
+
+                setWatchFaceStyle(style.build());
             }
 
             // Whether the timer should be running depends on whether we're visible (as well as

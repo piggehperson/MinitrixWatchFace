@@ -10,6 +10,6 @@
     <string name="pref_tall_label">Use tall peek cards</string>
     <string name="pref_tall_key">pref_tall</string>
 
-    <string name="pref_seethru_label">Translucent peek cards</string>
+    <string name="pref_seethru_label">See-through peek cards</string>
     <string name="pref_seethru_key">pref_seethru</string>
 </resources>
