@@ -262,37 +262,35 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 mTextPaint.setAntiAlias(!inAmbientMode);
             }
 
-            if(!mAmbient){
-                //update prefs. this is probably not the best way to do this but it's better than in onDraw()
+            //update prefs. this is probably not the best way to do this but it's better than in onDraw()
 
-                WatchFaceStyle.Builder style = new WatchFaceStyle.Builder(MyWatchFace.this)
-                        .setAcceptsTapEvents(false)
-                        .setStatusBarGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL - 10) //TODO: figure out how this works and fix it
-                        .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_VISIBLE);
+            WatchFaceStyle.Builder style = new WatchFaceStyle.Builder(MyWatchFace.this)
+                    .setAcceptsTapEvents(false)
+                    .setStatusBarGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL - 10) //TODO: figure out how this works and fix it
+                    .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_VISIBLE);
 
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
-                    //Watch is running Android Wear 1.5 or lower, apply settings for 1.X
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
+                //Watch is running Android Wear 1.5 or lower, apply settings for 1.X
 
-                    //Apply Tall Peek Cards preference
-                    if (mPrefs.getBoolean(getString(R.string.pref_tall_key), getResources().getBoolean(R.bool.pref_tall_default))){
-                        //Peek cards should be tall
-                        style.setCardPeekMode(WatchFaceStyle.PEEK_MODE_VARIABLE);
-                    } else {
-                        //Peek cards should be short
-                        style.setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT);
-                    }
-                    //Apply Translucent Peek Cards preference
-                    if (mPrefs.getBoolean(getString(R.string.pref_seethru_key), getResources().getBoolean(R.bool.pref_seethru_default))){
-                        //Peek cards should be translucent
-                        style.setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_TRANSLUCENT);
-                    } else {
-                        //Peek cards should be opaque
-                        style.setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_OPAQUE);
-                    }
+                //Apply Tall Peek Cards preference
+                if (mPrefs.getBoolean(getString(R.string.pref_tall_key), getResources().getBoolean(R.bool.pref_tall_default))){
+                    //Peek cards should be tall
+                    style.setCardPeekMode(WatchFaceStyle.PEEK_MODE_VARIABLE);
+                } else {
+                    //Peek cards should be short
+                    style.setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT);
                 }
-
-                setWatchFaceStyle(style.build());
+                //Apply Translucent Peek Cards preference
+                if (mPrefs.getBoolean(getString(R.string.pref_seethru_key), getResources().getBoolean(R.bool.pref_seethru_default))){
+                    //Peek cards should be translucent
+                    style.setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_TRANSLUCENT);
+                } else {
+                    //Peek cards should be opaque
+                    style.setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_OPAQUE);
+                }
             }
+
+            setWatchFaceStyle(style.build());
 
             // Whether the timer should be running depends on whether we're visible (as well as
             // whether we're in ambient mode), so we may need to start or stop the timer.
