@@ -293,7 +293,8 @@ public class MyWatchFace extends CanvasWatchFaceService {
             WatchFaceStyle.Builder style = new WatchFaceStyle.Builder(MyWatchFace.this)
                     .setAcceptsTapEvents(false)
                     .setStatusBarGravity(Gravity.CENTER | (mWidth / 3))
-                    .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_VISIBLE);
+                    .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_VISIBLE)
+                    .setViewProtectionMode(WatchFaceStyle.PROTECT_STATUS_BAR);
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
                 //Watch is running Android Wear 1.5 or lower, apply settings for 1.X
