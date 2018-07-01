@@ -292,7 +292,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
         private void buildStyle() {
             WatchFaceStyle.Builder style = new WatchFaceStyle.Builder(MyWatchFace.this)
                     .setAcceptsTapEvents(false)
-                    .setStatusBarGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL - (mWidth / 3))
+                    .setStatusBarGravity(Gravity.CENTER | (mWidth / 3))
                     .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_VISIBLE);
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
