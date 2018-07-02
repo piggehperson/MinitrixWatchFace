@@ -118,7 +118,6 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
             // Initialize SharedPreferences, used for loading settings
             mPrefs = getSharedPreferences("prefs", MODE_PRIVATE);
-            mUse24hr = mPrefs.getBoolean(getString(R.string.pref_24hr_key), getResources().getBoolean(R.bool.pref_24hr_default));
 
             mCalendar = Calendar.getInstance();
 
@@ -290,6 +289,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
         }
 
         private void buildStyle() {
+            //apply 24 Hour Time preference
+            mUse24hr = mPrefs.getBoolean(getString(R.string.pref_24hr_key), getResources().getBoolean(R.bool.pref_24hr_default));
+
             WatchFaceStyle.Builder style = new WatchFaceStyle.Builder(MyWatchFace.this)
                     .setAcceptsTapEvents(false)
                     .setStatusBarGravity(Gravity.CENTER | (mWidth / 3))
